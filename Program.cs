@@ -19,11 +19,18 @@ namespace InventoryManagementAPI
             builder.Services.AddDbContext<InventoryManagementContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddSwaggerGen();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/openapi/v1.json", "API v1");
+                    options.RoutePrefix = "swagger"; // Acessível em /swagger
+                });
                 app.MapOpenApi();
             }
 
