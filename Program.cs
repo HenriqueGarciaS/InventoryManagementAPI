@@ -1,5 +1,6 @@
 
 using InventoryManagementAPI.Data;
+using InventoryManagementAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagementAPI
@@ -18,6 +19,10 @@ namespace InventoryManagementAPI
 
             builder.Services.AddDbContext<InventoryManagementContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped<ProductRepository>();
+            builder.Services.AddScoped<CategoryRepository>();
+            builder.Services.AddScoped<SupplierRepository>();
 
             builder.Services.AddSwaggerGen();
 
